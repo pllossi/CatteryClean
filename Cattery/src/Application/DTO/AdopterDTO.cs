@@ -8,8 +8,10 @@ namespace Application.DTO
 {
     public record AdopterDTO(
         string Name,
-        string PhoneNumber,
-        string Email,
-        string Address
+        PhoneNumberDTO PhoneNumber,
+        EmailDTO Email,
+        string Address,
+        CapDTO Cap,
+        TaxIdDTO TaxId
         );
 }

@@ -23,5 +23,17 @@ namespace Application.Mappers
                 cat.CodeId
             );
         }
+        public static Cat ToEntity(this CatDto catDto)
+        {
+            return new Cat
+            (
+                catDto.Name,
+                catDto.Breed,
+                catDto.Male,
+                catDto.Description,
+                catDto.ExitDate,
+                catDto.BirthDate
+            );
+        }
     }
 }
