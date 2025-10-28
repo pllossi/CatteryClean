@@ -9,8 +9,15 @@ namespace Domain.Entities
         private PhoneNumber _phone;
         private Email _email;
         private TaxId _taxId;
-        private string _postalCode;
+        private Cap _postalCode;
         private string _city;
+        private string _address;
+
+        public string Address
+        {
+            get => _address;
+            set => _address = value;
+        }
 
         public string Name
         {
@@ -42,7 +49,7 @@ namespace Domain.Entities
             set => _taxId = value;
         }
 
-        public string PostalCode
+        public Cap PostalAddress
         {
             get => _postalCode;
             set => _postalCode = value;
@@ -54,18 +61,20 @@ namespace Domain.Entities
             set => _city = value;
         }
 
-        public Adopter(string name, string surname, PhoneNumber? phone, Email? email, TaxId taxId)
+        public Adopter(string name, string surname, PhoneNumber? phone, Email? email, TaxId taxId,Cap postalcode, string address)
         {
             Name = name;
             Surname = surname;
             Phone = phone ?? throw new ArgumentNullException(nameof(phone));
             Email = email ?? throw new ArgumentNullException(nameof(email));
             TaxId = taxId ?? throw new ArgumentNullException(nameof(taxId));
+            PostalAddress = postalcode ?? throw new ArgumentNullException(nameof(postalcode));
+            Address = address;
         }
 
         public override string ToString()
         {
-            return $"{Name} {Surname}, Phone: {Phone}, Email: {Email}, TaxId: {TaxId}, PostalCode: {PostalCode}, City: {City}";
+            return $"{Name} {Surname}, Phone: {Phone}, Email: {Email}, TaxId: {TaxId}, PostalCode: {PostalAddress}, City: {City}";
         }
     }
 }
