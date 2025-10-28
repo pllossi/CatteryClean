@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.DTO;
 using Domain.Entities;
+using Domain.ValueObjects;
 
 namespace Application.Mappers
 {
@@ -15,10 +16,11 @@ namespace Application.Mappers
             return new AdopterDTO(
                 adopter.Name,
                 adopter.Surname,
-                adopter.TaxId.ToDTO(),
-                adopter.Address.ToDTO(),
-                adopter.PhoneNumber,
-                adopter.Email
+                adopter.Phone.ToDTO(),
+                adopter.Email.ToDTO(),
+                adopter.Address,
+                adopter.PostalAddress.ToDTO(),
+                adopter.TaxId.ToDTO()
             );
         }
         public static Adopter ToEntity(this AdopterDTO adopterDto)
@@ -26,10 +28,11 @@ namespace Application.Mappers
             return new Adopter(
                 adopterDto.Name,
                 adopterDto.Surname,
+                adopterDto.PhoneNumber.ToEntity(),
+                adopterDto.Email.ToEntity(),
                 adopterDto.TaxId.ToEntity(),
-                adopterDto.Address.ToEntity(),
-                adopterDto.PhoneNumber,
-                adopterDto.Email
+                adopterDto.Cap.ToEntity(),
+                adopterDto.Address
             );
         }
     }

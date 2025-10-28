@@ -18,5 +18,13 @@ namespace Application.Mappers
                email.Value
             );
         }
+        public static Email ToEntity(this EmailDTO emailDto)
+        {
+            if (emailDto == null) return null;
+            return new Email
+            (
+                emailDto.Email
+            );
+        }
     }
 }

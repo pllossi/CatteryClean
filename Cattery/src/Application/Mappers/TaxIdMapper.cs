@@ -10,10 +10,10 @@ namespace Application.Mappers
 {
     public static class TaxIdMapper
     {
-        public static TaxIdDTO ToDTO(this string taxId)
+        public static TaxIdDTO ToDTO(this TaxId taxId)
         {
             return new TaxIdDTO(
-                taxId
+                taxId.Value
             );
         }
         public static TaxId ToEntity(this TaxIdDTO taxIdDto)
