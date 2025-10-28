@@ -8,6 +8,7 @@ namespace Application.DTO
 {
     public record AdopterDTO(
         string Name,
+        string Surname,
         PhoneNumberDTO PhoneNumber,
         EmailDTO Email,
         string Address,
