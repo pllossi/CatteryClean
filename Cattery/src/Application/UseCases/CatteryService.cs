@@ -27,5 +27,16 @@ namespace Application.UseCases
         {
             throw new NotImplementedException();
         }
+        public void ReturnCat(string codeId)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<CatDto> GetAllCats()
+        {
+            var cats = _repository.getAllCats();
+            return cats.Select(cats => cats.ToDTO());
+        }
+
+
     }
 }
