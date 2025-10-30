@@ -12,6 +12,7 @@ namespace Application.Interfaces
     {
         void addCat(Cat cat);
         IEnumerable<Cat> getAllCats();
+        bool existsByCodeId(string codeId);
 
     }
 }
