@@ -6,17 +6,44 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text.Json;
 
 namespace Infrastructure.Persistance.Repositories
 {
     public class JsonCatRepository : ICatRepository
     {
+        private List<Cat> _cache = new();
+        private bool _initialized = false;
         private readonly string _filePath;
         private readonly JsonSerializerOptions _jsonOptions = new()
         {
             WriteIndented = true
         };
+
+        private void EnsureLoaded()
+        {
+            if (_initialized) return;
+
+            if (!File.Exists(_filePath))
+            {
+                _initialized = true;
+                return;
+            }
+
+            var json = File.ReadAllText(_filePath);
+            var dtos = JsonSerializer.Deserialize<List<CatDtoPersistance>>(json) ?? new List<CatDtoPersistance>();
+
+            //per ogni dto
+            foreach (var dto in dtos)
+            {
+                
+                Cat cat = dto.ToEntity();
+                _cache.Add(cat);
+            }
+
+            _initialized = true;
+        }
 
         public JsonCatRepository(string? filePath = null)
         {
@@ -31,45 +58,30 @@ namespace Infrastructure.Persistance.Repositories
 
         public void addCat(Cat cat)
         {
+            EnsureLoaded();
             if (cat is null) throw new ArgumentNullException(nameof(cat));
 
-            var list = LoadDtos().ToList();
-            list.Add(cat.ToPersistanceDto());
-            SaveDtos(list);
+            _cache.Add(cat);
+            SaveDtos();
         }
 
         public IEnumerable<Cat> getAllCats()
-        {
-            var dtos = LoadDtos();
-            foreach (var dto in dtos)
+        { 
+            foreach (var dto in _cache)
             {
-                yield return dto.ToDomain();
+                yield return dto;
             }
         }
 
-        private IEnumerable<CatDtoPersistance> LoadDtos()
+        private void SaveDtos()
         {
-            if (!File.Exists(_filePath))
-                return Enumerable.Empty<CatDtoPersistance>();
-
-            try
+            var directory = Path.GetDirectoryName(_filePath);
+            if (!string.IsNullOrEmpty(directory))
             {
-                var json = File.ReadAllText(_filePath);
-                return string.IsNullOrWhiteSpace(json)
-                    ? Enumerable.Empty<CatDtoPersistance>()
-                    : (JsonSerializer.Deserialize<List<CatDtoPersistance>>(json, _jsonOptions)
-                       ?? Enumerable.Empty<CatDtoPersistance>());
+                Directory.CreateDirectory(directory);
             }
-            catch
-            {
-                // In caso di file corrotto restituiamo lista vuota
-                return Enumerable.Empty<CatDtoPersistance>();
-            }
-        }
 
-        private void SaveDtos(IEnumerable<CatDtoPersistance> dtos)
-        {
-            var json = JsonSerializer.Serialize(dtos, _jsonOptions);
+            var json = JsonSerializer.Serialize(_cache, _jsonOptions);
             File.WriteAllText(_filePath, json);
         }
 
