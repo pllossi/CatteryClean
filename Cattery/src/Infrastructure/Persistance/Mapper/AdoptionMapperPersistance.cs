@@ -28,7 +28,7 @@ namespace Infrastructure.Persistance.Mapper
 
             return new Adoption(
                 dto.Adopter.ToDomain(),
-                dto.Cat.ToDomain(),
+                dto.Cat.ToEntity(),
                 dto.AdoptionDate
             );
         }

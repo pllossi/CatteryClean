@@ -21,7 +21,7 @@ namespace Infrastructure.Persistance.Mapper
             );
         }
 
-        public static Cat ToDomain(this CatDtoPersistance dto)
+        public static Cat ToEntity(this CatDtoPersistance dto)
         {
             if (dto is null) throw new ArgumentNullException(nameof(dto));
 
