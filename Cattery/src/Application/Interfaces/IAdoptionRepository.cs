@@ -7,7 +7,7 @@ using Domain.Entities;
 
 namespace Application.Interfaces
 {
-    public interface IAdoptonReposository
+    public interface IAdoptionRepository
     {
         void addAdoption(Adoption adoption);
         void deleteAdoption(Adoption adoption);
