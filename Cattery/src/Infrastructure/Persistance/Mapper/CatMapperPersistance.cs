@@ -34,7 +34,7 @@ namespace Infrastructure.Persistance.Mapper
                 dto.BirthDate
             );
 
-            cat.CodeId = dto.CodeId;
+            cat.setCodeId( dto.CodeId );
             return cat;
         }
     }

@@ -18,7 +18,7 @@ namespace Application.UseCases
             _catRepository = repository;
             _adopterRepository = adoptionRepository;
         }
-        public void AddCat(CatDto dto)
+        public void AddCat(CatDto? dto)
         {
             if(dto is null) throw new ArgumentNullException(nameof(dto));
             var cat = dto.ToEntity();

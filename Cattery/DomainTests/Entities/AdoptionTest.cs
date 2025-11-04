@@ -12,14 +12,18 @@ public class AdoptionTest
         var phone = new PhoneNumber("3331234567");
         var email = new Email("test@email.com");
         var taxId = new TaxId("RSSMRA80A01H501U");
+        var cap = new Cap("00100");
+        string address = "Via Roma 1";
 
-        var adopter = new Adopter("Mario", "Rossi", phone, email, taxId);
+        var adopter = new Adopter("Mario", "Rossi", phone, email, taxId, cap, address);
 
         Assert.AreEqual("Mario", adopter.Name);
         Assert.AreEqual("Rossi", adopter.Surname);
         Assert.AreEqual(phone, adopter.Phone);
         Assert.AreEqual(email, adopter.Email);
         Assert.AreEqual(taxId, adopter.TaxId);
+        Assert.AreEqual(cap, adopter.PostalAddress);
+        Assert.AreEqual(address, adopter.Address);
     }
 
     [TestMethod]
@@ -29,8 +33,10 @@ public class AdoptionTest
         var phone = new PhoneNumber("3331234567");
         var email = new Email("test@email.com");
         var taxId = new TaxId("RSSMRA80A01H501U");
+        var cap = new Cap("00100");
+        string address = "Via Roma 1";
 
-        var _ = new Adopter("", "Rossi", phone, email, taxId);
+        var _ = new Adopter("", "Rossi", phone, email, taxId, cap, address);
     }
 
     [TestMethod]
@@ -40,8 +46,10 @@ public class AdoptionTest
         var phone = new PhoneNumber("3331234567");
         var email = new Email("test@email.com");
         var taxId = new TaxId("RSSMRA80A01H501U");
+        var cap = new Cap("00100");
+        string address = "Via Roma 1";
 
-        var _ = new Adopter("Mario", "", phone, email, taxId);
+        var _ = new Adopter("Mario", "", phone, email, taxId, cap, address);
     }
 
     [TestMethod]
@@ -49,7 +57,10 @@ public class AdoptionTest
     public void Constructor_NullPhoneAndNullEmail_ThrowsArgumentNullException()
     {
         var taxId = new TaxId("RSSMRA80A01H501U");
-        var _ = new Adopter("Mario", "Rossi", null, null, taxId);
+        var cap = new Cap("00100");
+        string address = "Via Roma 1";
+
+        var _ = new Adopter("Mario", "Rossi", null, null, taxId, cap, address);
     }
 
     [TestMethod]
@@ -58,8 +69,10 @@ public class AdoptionTest
     {
         var email = new Email("test@email.com");
         var taxId = new TaxId("RSSMRA80A01H501U");
+        var cap = new Cap("00100");
+        string address = "Via Roma 1";
 
-        var _ = new Adopter("Mario", "Rossi", null, email, taxId);
+        var _ = new Adopter("Mario", "Rossi", null, email, taxId, cap, address);
     }
 
     [TestMethod]
@@ -68,8 +81,10 @@ public class AdoptionTest
     {
         var phone = new PhoneNumber("3331234567");
         var taxId = new TaxId("RSSMRA80A01H501U");
+        var cap = new Cap("00100");
+        string address = "Via Roma 1";
 
-        var _ = new Adopter("Mario", "Rossi", phone, null, taxId);
+        var _ = new Adopter("Mario", "Rossi", phone, null, taxId, cap, address);
     }
 
     [TestMethod]
@@ -78,8 +93,10 @@ public class AdoptionTest
     {
         var phone = new PhoneNumber("3331234567");
         var email = new Email("test@email.com");
+        var cap = new Cap("00100");
+        string address = "Via Roma 1";
 
-        var _ = new Adopter("Mario", "Rossi", phone, email, null);
+        var _ = new Adopter("Mario", "Rossi", phone, email, null, cap, address);
     }
 
     [TestMethod]
@@ -88,7 +105,10 @@ public class AdoptionTest
         var phone = new PhoneNumber("3331234567");
         var email = new Email("test@email.com");
         var taxId = new TaxId("RSSMRA80A01H501U");
-        var adopter = new Adopter("Mario", "Rossi", phone, email, taxId);
+        var cap = new Cap("00100");
+        string address = "Via Roma 1";
+
+        var adopter = new Adopter("Mario", "Rossi", phone, email, taxId, cap, address);
 
         Assert.AreEqual("Mario Rossi", adopter.ToString());
     }

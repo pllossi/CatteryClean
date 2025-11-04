@@ -96,7 +96,26 @@ namespace Domain.Entities
             set => _birthDate = value;
         }
 
-        public string CodeId = "";
+        public string CodeId
+        {             
+            get => _codeId;
+            private set => _codeId=value;
+        }
+
+        public void setCodeId(string codeId)
+        {
+            if(codeId is null || codeId == "" || codeId == " ")
+            {
+                throw new ArgumentException();
+            }
+            if(GeneratedCodes.Contains(codeId))
+            {
+                throw new ArgumentException("CodeId must be unique.");
+            }
+            _codeId = codeId;
+        }
+
+        private string _codeId = string.Empty;
 
         private string CreateCodeId()
         {
