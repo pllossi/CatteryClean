@@ -22,13 +22,22 @@ namespace Domain.Entities
         public string Name
         {
             get => _name;
-            set => _name = value;
+            set {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Name cannot be empty.");
+                _name = value;
+            }
         }
 
         public string Surname
         {
             get => _surname;
-            set => _surname = value;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Name cannot be empty.");
+                _surname = value;
+            }
         }
 
         public PhoneNumber Phone
