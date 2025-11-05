@@ -108,6 +108,6 @@ public class AdopterTest
         string address = "Via Roma 1";
         var adopter = new Adopter("Mario", "Rossi", phone, email, taxId, cap, address);
 
-        Assert.AreEqual("Mario Rossi", adopter.ToString());
+        Assert.AreEqual("Mario Rossi, Phone: 3331234567, Email: test@email.com, TaxId: RSSMRA80A01H501U, PostalCode: 00100, City: ", adopter.ToString());
     }
 }
