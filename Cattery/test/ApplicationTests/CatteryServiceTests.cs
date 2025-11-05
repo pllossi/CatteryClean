@@ -108,7 +108,7 @@ namespace ApplicationTests
             Assert.IsTrue(_service.GetAllCats().Any(c => c.CodeId == "C2"));
         }
 
-        [TestMethod]+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void AdoptCat_NullDto_Throws()
         {
@@ -131,6 +131,7 @@ namespace ApplicationTests
             var catDto = new CatDto("Name", "Breed", true, null, null, null, "C4");
             var adopterDto = new AdopterDTO("Name", "Surname", new PhoneNumberDTO("1234567"), new EmailDTO("a@b.cd"), "addr", new CapDTO("12345"), new TaxIdDTO("AAAAAAAAAAAAAAAA"));
             var adoptionDto = new AdoptionDTO(catDto, adopterDto, DateTime.Today);
+            _service.AddCat(catDto);
             _service.AdoptCat(adoptionDto);
             Assert.AreEqual(1, _adoptionRepo.Adoptions.Count);
         }
@@ -153,11 +154,13 @@ namespace ApplicationTests
         public void ReturnCat_Valid_DeletesAdoption()
         {
             var cat = new Cat("Name", "Breed", true);
+            cat.setCodeId("C6");
             var phone = new PhoneNumber("1234567");
             var email = new Email("a@b.cd");
             var taxId = new TaxId("AAAAAAAAAAAAAAAA");
             var cap = new Cap("12345");
             var adopter = new Adopter("Name", "Surname", phone, email, taxId, cap, "addr");
+            _catRepo.addCat(cat);
             var adoption = new Adoption(adopter, cat, DateTime.Today);
             _adoptionRepo.addAdoption(adoption);
             _service.ReturnCat("C6");
