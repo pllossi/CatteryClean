@@ -17,7 +17,6 @@ namespace Infrastructure.Persistance.Repositories
         {
             WriteIndented = true
         };
-
         public JsonAdoptionPersistance(string? filePath = null)
         {
             var baseFolder = Path.Combine(
@@ -27,6 +26,7 @@ namespace Infrastructure.Persistance.Repositories
             Directory.CreateDirectory(baseFolder);
 
             _filePath = filePath ?? Path.Combine(baseFolder, "adoption.json");
+            EnsureLoaded();
         }
 
         public void addAdoption(Adoption adoption)

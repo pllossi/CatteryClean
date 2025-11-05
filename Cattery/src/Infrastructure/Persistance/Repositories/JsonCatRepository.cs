@@ -15,7 +15,7 @@ namespace Infrastructure.Persistance.Repositories
     {
         private List<Cat> _cache = new();
         private bool _initialized = false;
-        private readonly string _filePath;
+        private readonly string _filePath="cats.json";
         private readonly JsonSerializerOptions _jsonOptions = new()
         {
             WriteIndented = true
@@ -53,7 +53,7 @@ namespace Infrastructure.Persistance.Repositories
 
             Directory.CreateDirectory(baseFolder);
 
-            _filePath = filePath ?? Path.Combine(baseFolder, "cats.json");
+            EnsureLoaded();
         }
 
         public void addCat(Cat cat)

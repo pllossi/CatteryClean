@@ -10,7 +10,18 @@ using System.Linq;
 
 namespace ApplicationTests
 {
-    // Repository fittizio per i gatti
+    public class FakeAdopterRepository : IAdopterRepository
+    {
+        public List<Adopter> Adopters = new();
+
+        public void addAdopter(Adopter adopter)
+        {
+            if (adopter is null) throw new ArgumentNullException(nameof(adopter));
+            Adopters.Add(adopter);
+        }
+
+        public IEnumerable<Adopter> getAllAdopters() => Adopters;
+    }
     public class FakeCatRepository : ICatRepository
     {
         public List<Cat> Cats = new();
@@ -44,7 +55,7 @@ namespace ApplicationTests
     {
         public static Cat ToEntity(this CatDto dto)
         {
-            var cat = new Cat(dto.Name, dto.Breed, dto.Male, dto.Description, dto.ExitDate, dto.BirthDate);
+            var cat = new Cat(dto.Name, dto.Breed, dto.IsMale, dto.Description, dto.ExitDate, dto.BirthDate);
             return cat;
         }
 
@@ -83,6 +94,7 @@ namespace ApplicationTests
     {
         private FakeCatRepository _catRepo = null!;
         private FakeAdoptionRepository _adoptionRepo = null!;
+        private FakeAdopterRepository _adopterRepo = null!;
         private CatteryService _service = null!;
 
         [TestInitialize]
@@ -90,7 +102,9 @@ namespace ApplicationTests
         {
             _catRepo = new FakeCatRepository();
             _adoptionRepo = new FakeAdoptionRepository();
-            _service = new CatteryService(_catRepo, _adoptionRepo);
+            _adopterRepo = new FakeAdopterRepository();
+            // Costruttore con tre repository (ICatRepository, IAdoptionRepository, IAdopterRepository)
+            _service = new CatteryService(_catRepo, _adoptionRepo, _adopterRepo);
         }
 
         [TestMethod]
@@ -176,6 +190,55 @@ namespace ApplicationTests
             _catRepo.addCat(c2);
             var result = _service.GetAllCats().ToList();
             Assert.AreEqual(2, result.Count);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RegisterAdopter_NullDto_Throws()
+        {
+            _service.RegisterAdopter(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void RegisterAdopter_DuplicateTaxId_Throws()
+        {
+            var phone = new PhoneNumber("1234567");
+            var email = new Email("a@b.cd");
+            var taxId = new TaxId("DUPLICATETAXID01");
+            var cap = new Cap("12345");
+            var existingAdopter = new Adopter("Existing", "User", phone, email, taxId, cap, "addr");
+            _adopterRepo.addAdopter(existingAdopter);
+
+            var adopterDto = new AdopterDTO(
+                "New",
+                "User",
+                new PhoneNumberDTO("1234567"),
+                new EmailDTO("a@b.cd"),
+                "addr",
+                new CapDTO("12345"),
+                new TaxIdDTO("DUPLICATETAXID01")
+            );
+
+            _service.RegisterAdopter(adopterDto);
+        }
+
+        [TestMethod]
+        public void RegisterAdopter_Valid_AddsAdopter()
+        {
+            var adopterDto = new AdopterDTO(
+                "Valid",
+                "User",
+                new PhoneNumberDTO("1234567"),
+                new EmailDTO("valid@b.cd"),
+                "addr",
+                new CapDTO("12345"),
+                new TaxIdDTO("UNIQUETAXID01")
+            );
+
+            _service.RegisterAdopter(adopterDto);
+
+            Assert.IsTrue(_adopterRepo.Adopters.Any(a => a.TaxId.ToString() == "UNIQUETAXID01" || a.TaxId.Equals(new TaxId("UNIQUETAXID01"))));
+            Assert.AreEqual(1, _adopterRepo.Adopters.Count);
         }
     }
 }

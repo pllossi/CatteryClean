@@ -29,12 +29,15 @@ namespace Application.Mappers
             (
                 catDto.Name,
                 catDto.Breed,
-                catDto.Male,
+                catDto.IsMale,
                 catDto.Description,
                 catDto.ExitDate,
                 catDto.BirthDate
             );
-            cat.setCodeId(catDto.CodeId);
+            if(catDto.CodeId != null)
+            {
+                cat.setCodeId(catDto.CodeId);
+            }
             return cat;
         }
     }

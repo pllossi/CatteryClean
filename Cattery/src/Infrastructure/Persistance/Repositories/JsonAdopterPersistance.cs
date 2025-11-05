@@ -16,7 +16,13 @@ namespace Infrastructure.Persistance.Repositories
         {
             WriteIndented = true
         };
-        private List<Adopter> _cache = new();
+        public JsonAdopterPersistance(string? filePath = null)
+        {
+            if (filePath != null)
+                _filePath = filePath;
+            EnsureLoaded();
+        }
+        private List<Adopter> _cache = new List<Adopter>();
         public void addAdopter(Adopter adopter)
         {
             EnsureLoaded();
@@ -38,11 +44,12 @@ namespace Infrastructure.Persistance.Repositories
                 return;
             if (!File.Exists(_filePath))
             {
+
                 _cache = new List<Adopter>();
                 return;
             }
             var json = File.ReadAllText(_filePath);
-            _cache = JsonSerializer.Deserialize<List<Adopter>>(json, _jsonOptions) ?? new List<Adopter>();
+            _cache = JsonSerializer.Deserialize<List<Adopter>>(json, _jsonOptions);
         }
         private void AddAdopterToFile()
         {

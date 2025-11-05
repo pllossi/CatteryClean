@@ -9,7 +9,7 @@ namespace Application.DTO
     public record CatDto (
         string Name,
         string Breed,
-        bool Male,
+        bool IsMale,
         string? Description,
         DateTime? ExitDate,
         DateTime? BirthDate,

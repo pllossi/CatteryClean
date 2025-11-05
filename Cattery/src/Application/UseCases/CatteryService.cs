@@ -12,11 +12,13 @@ namespace Application.UseCases
     public class CatteryService
     {
         private readonly ICatRepository _catRepository;
-        private readonly IAdoptionRepository _adopterRepository;
-        public CatteryService(ICatRepository repository, IAdoptionRepository adoptionRepository)
+        private readonly IAdoptionRepository _adoptionRepository;
+        private readonly IAdopterRepository _adopterRepository;
+        public CatteryService(ICatRepository repository, IAdoptionRepository adoptionRepository,IAdopterRepository adopterRepository)
         {
             _catRepository = repository;
-            _adopterRepository = adoptionRepository;
+            _adoptionRepository = adoptionRepository;
+            _adopterRepository = adopterRepository;
         }
         public void AddCat(CatDto? dto)
         {
@@ -30,15 +32,22 @@ namespace Application.UseCases
             if(adoption is null) throw new ArgumentNullException(nameof(adoption));
             var adoptio = adoption.ToEntity();
             if(!_catRepository.existsByCodeId(adoptio.Cat.CodeId)) throw new ArgumentException("The cat to be adopted does not exist.");
-            _adopterRepository.addAdoption(adoptio);
+            _adoptionRepository.addAdoption(adoptio);
         }
         public void ReturnCat(string codeId)
         {
             if(string.IsNullOrWhiteSpace(codeId)) throw new ArgumentNullException(nameof(codeId));
-            var adoptions = _adopterRepository.getAllAdoptions();
+            var adoptions = _adoptionRepository.getAllAdoptions();
             var adoption = adoptions.FirstOrDefault(a => a.Cat.CodeId == codeId);
             if(adoption is null) throw new ArgumentException("The cat with the given CodeId is not adopted.");
-            _adopterRepository.deleteAdoption(adoption);
+            _adoptionRepository.deleteAdoption(adoption);
+        }
+        public void RegisterAdopter(AdopterDTO adopterDto)
+        {
+            if(adopterDto is null) throw new ArgumentNullException(nameof(adopterDto));
+            var adopter = adopterDto.ToEntity();
+            if(_adopterRepository.getAllAdopters().Any(a=> a.TaxId==adopter.TaxId)) throw new ArgumentException("An adopter with the same TaxId already exists.");
+            _adopterRepository.addAdopter(adopter);
         }
         public IEnumerable<CatDto> GetAllCats()
         {
