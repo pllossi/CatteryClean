@@ -25,7 +25,7 @@ namespace Application.Mappers
         }
         public static Cat ToEntity(this CatDto catDto)
         {
-            return new Cat
+            var cat = new Cat
             (
                 catDto.Name,
                 catDto.Breed,
@@ -34,6 +34,8 @@ namespace Application.Mappers
                 catDto.ExitDate,
                 catDto.BirthDate
             );
+            cat.setCodeId(catDto.CodeId);
+            return cat;
         }
     }
 }
