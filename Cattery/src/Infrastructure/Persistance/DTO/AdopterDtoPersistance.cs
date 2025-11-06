@@ -10,10 +10,10 @@ namespace Infrastructure.Persistance.DTO
     public record AdopterDtoPersistance(
         string Name,
         string Surname,
-        PhoneNumberDtoPersistance PhoneNumber,
-        EmailDtoPersistance Email,
+        string PhoneNumber,
+        string Email,
         string Address,
-        CapDtoPersistance Cap,
-        TaxIdDtoPersistance TaxId
+        string Cap,
+        string TaxId
         );
 }
