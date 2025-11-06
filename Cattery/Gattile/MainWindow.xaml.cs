@@ -1,13 +1,16 @@
 ﻿using GattileUI;
 using System.Windows;
 using System.ComponentModel;
-using Application;
+using Application.UseCases;
+using Application.DTO;
+using Application.Interfaces;
 
 namespace GattileUI
 {
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        ShelterManager manager = new ShelterManager();
+         
+         CatteryService manager = new CatteryService();
 
         private int _catCount;
         public int CatCount
