@@ -14,11 +14,11 @@ namespace Infrastructure.Persistance.Mapper
             return new AdopterDtoPersistance(
                 adopter.Name,
                 adopter.Surname,
-                new PhoneNumberDtoPersistance(adopter.Phone.ToString()),
-                new EmailDtoPersistance(adopter.Email.ToString()),
+                adopter.Phone.ToString(),
+                adopter.Email.ToString(),
                 adopter.Address,
-                new CapDtoPersistance(adopter.PostalAddress.ToString()),
-                new TaxIdDtoPersistance(adopter.TaxId.ToString())
+                adopter.PostalAddress.ToString(),
+                adopter.TaxId.ToString()
             );
         }
 
@@ -26,10 +26,10 @@ namespace Infrastructure.Persistance.Mapper
         {
             if (dto is null) throw new ArgumentNullException(nameof(dto));
 
-            var phone = dto.PhoneNumber is not null ? new PhoneNumber(dto.PhoneNumber.PhoneNumber) : null;
-            var email = dto.Email is not null ? new Email(dto.Email.Email) : null;
-            var taxId = new TaxId(dto.TaxId.TaxId);
-            var cap = new Cap(dto.Cap.Cap);
+            var phone = dto.PhoneNumber is not null ? new PhoneNumber(dto.PhoneNumber) : null;
+            var email = dto.Email is not null ? new Email(dto.Email) : null;
+            var taxId = new TaxId(dto.TaxId);
+            var cap = new Cap(dto.Cap);
 
             return new Adopter(
                 dto.Name,

@@ -232,12 +232,12 @@ namespace ApplicationTests
                 new EmailDTO("valid@b.cd"),
                 "addr",
                 new CapDTO("12345"),
-                new TaxIdDTO("UNIQUETAXID01")
+                new TaxIdDTO("UNIQUETAXID01SE4")
             );
 
             _service.RegisterAdopter(adopterDto);
 
-            Assert.IsTrue(_adopterRepo.Adopters.Any(a => a.TaxId.ToString() == "UNIQUETAXID01" || a.TaxId.Equals(new TaxId("UNIQUETAXID01"))));
+            Assert.IsTrue(_adopterRepo.Adopters.Any(a => a.TaxId.ToString() == "UNIQUETAXID01SE4" || a.TaxId.Equals(new TaxId("UNIQUETAXID01SE4"))));
             Assert.AreEqual(1, _adopterRepo.Adopters.Count);
         }
     }

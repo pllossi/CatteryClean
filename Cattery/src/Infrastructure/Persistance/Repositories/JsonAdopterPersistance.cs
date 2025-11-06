@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Application.DTO;
+using Application.Mappers;
 
 namespace Infrastructure.Persistance.Repositories
 {
@@ -22,21 +24,26 @@ namespace Infrastructure.Persistance.Repositories
                 _filePath = filePath;
             EnsureLoaded();
         }
-        private List<Adopter> _cache = new List<Adopter>();
+        private List<AdopterDTO> _cache = new List<AdopterDTO>();
         public void addAdopter(Adopter adopter)
         {
             EnsureLoaded();
             if(adopter == null)
                 throw new ArgumentNullException(nameof(adopter));
-            if(_cache.Any(a => a.TaxId == adopter.TaxId))
+            if(_cache.Any(a => a.ToEntity().TaxId == adopter.TaxId))
                 throw new InvalidOperationException("Adopter with the same Tax ID already exists.");
-            _cache.Add(adopter);
+            _cache.Add(adopter.ToDTO());
             AddAdopterToFile();
         }
         public IEnumerable<Adopter> getAllAdopters()
         {
             EnsureLoaded();
-            return _cache;
+            List<Adopter> adopters = new List<Adopter>();
+            foreach (var dto in _cache)
+            {
+                adopters.Add(dto.ToEntity());
+            }
+            return adopters;
         }
         private void EnsureLoaded()
         {
@@ -45,11 +52,11 @@ namespace Infrastructure.Persistance.Repositories
             if (!File.Exists(_filePath))
             {
 
-                _cache = new List<Adopter>();
+                _cache = new List<AdopterDTO>();
                 return;
             }
             var json = File.ReadAllText(_filePath);
-            _cache = JsonSerializer.Deserialize<List<Adopter>>(json, _jsonOptions);
+            _cache = JsonSerializer.Deserialize<List<AdopterDTO>>(json, _jsonOptions) ?? new List<AdopterDTO>();
         }
         private void AddAdopterToFile()
         {
