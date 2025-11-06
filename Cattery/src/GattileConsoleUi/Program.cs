@@ -96,13 +96,33 @@ namespace GattileConsoleUi
                             Console.Write("Cognome: ");
                             var adopterSurname = Console.ReadLine()?.Trim() ?? string.Empty;
 
-                            Console.Write("Telefono: ");
-                            var adopterPhone = Console.ReadLine()?.Trim();
-                            if (string.IsNullOrWhiteSpace(adopterPhone)) adopterPhone = null;
+                            // Telefono: richiedi finché non valido
+                            string adopterPhone;
+                            while (true)
+                            {
+                                Console.Write("Telefono (solo cifre, min 7): ");
+                                var p = Console.ReadLine()?.Trim();
+                                if (!string.IsNullOrWhiteSpace(p) && p.All(char.IsDigit) && p.Length >= 7)
+                                {
+                                    adopterPhone = p;
+                                    break;
+                                }
+                                Console.WriteLine("Telefono non valido. Riprova.");
+                            }
 
-                            Console.Write("Email: ");
-                            var adopterEmail = Console.ReadLine()?.Trim();
-                            if (string.IsNullOrWhiteSpace(adopterEmail)) adopterEmail = null;
+                            // Email: richiedi finché non valida
+                            string adopterEmail;
+                            while (true)
+                            {
+                                Console.Write("Email: ");
+                                var e = Console.ReadLine()?.Trim();
+                                if (!string.IsNullOrWhiteSpace(e))
+                                {
+                                    adopterEmail = e;
+                                    break;
+                                }
+                                Console.WriteLine("Email non valida. Riprova.");
+                            }
 
                             Console.Write("Codice fiscale (TaxId): ");
                             var adopterTaxId = Console.ReadLine()?.Trim() ?? string.Empty;
