@@ -17,7 +17,7 @@ namespace Application.Mappers
             );
         }
         public static PhoneNumber ToEntity(this PhoneNumberDTO phoneNumberDto)
-        {
+        { 
             return new PhoneNumber(
                 phoneNumberDto.PhoneNumber
             );

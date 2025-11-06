@@ -12,7 +12,8 @@ namespace Application.Mappers
     {
         public static EmailDTO ToDTO(this Email email)
         {
-            if (email == null) return null;
+            if (email == null) 
+                throw new ArgumentNullException(nameof(email));
             return new EmailDTO
             (
                email.Value
@@ -20,7 +21,10 @@ namespace Application.Mappers
         }
         public static Email ToEntity(this EmailDTO emailDto)
         {
-            if (emailDto == null) return null;
+            if (emailDto == null) 
+                throw new ArgumentNullException(nameof(emailDto));
+            if (string.IsNullOrWhiteSpace(emailDto.Email))
+                throw new ArgumentException("Email value is null or empty", nameof(emailDto));
             return new Email
             (
                 emailDto.Email
