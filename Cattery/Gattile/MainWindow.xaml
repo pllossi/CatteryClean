@@ -7,8 +7,24 @@
         mc:Ignorable="d"
         Title="PaginaIniziale" Height="450" Width="800">
     <Grid>
-        <Label x:Name="lblPrincInizio" Content="Gattile" HorizontalAlignment="Center" Margin="0,43,0,0" VerticalAlignment="Top" Width="94" FontSize="29"/>
-        <Label Content="Gatti attualmente presenti nel gattile:" HorizontalAlignment="Left" Height="36" Margin="204,143,0,0" VerticalAlignment="Top" Width="243" FontSize="20"/>
-        <Label x:Name="lblNumGatti" Content="{Binding NumeroGatti}" HorizontalAlignment="Left" Height="36" Margin="452,143,0,0" VerticalAlignment="Top" Width="78" FontSize="20"/>
+        <Menu x:Name="MenuPrincipale" Width="Auto" Height="45" VerticalAlignment="Top">
+            <MenuItem Header="Gatti" FontSize="20" Height="45">
+                <MenuItem FontSize="15" Header="Visualizza Gatti" Click="MenuPrincipale_ViewCats_Click"/>
+                <MenuItem FontSize="15" Header="Aggiungi Gatto" Click="MenuPrincipale_AddCat_Click"/>
+            </MenuItem>
+            <MenuItem Header="Adottanti" FontSize="20">
+                <MenuItem FontSize="15" Header="Visualizza Adottanti" Click="MenuPrincipale_ViewAdopters_Click"/>
+                <MenuItem FontSize="15" Header="Aggiungi Adottante" Click="MenuPrincipale_AddAdopter_Click"/>
+            </MenuItem>
+            <MenuItem Header="Adozioni" FontSize="20">
+                <MenuItem FontSize="15" Header="Visualizza Adozioni" Click="MenuPrincipale_ViewAdoptions_Click"/>
+                <MenuItem FontSize="15" Header="Nuova Adozione" Click="MenuPrincipale_NewAdoption_Click"/>
+            </MenuItem>
+        </Menu>
+        <TextBlock HorizontalAlignment="Center" Height="Auto" Margin="0,90,0,0" TextWrapping="Wrap" Text="Gattile" FontSize="30" VerticalAlignment="Top" Width="Auto" />
+        <TextBlock HorizontalAlignment="Left" Height="Auto" Margin="98,187,0,0" TextWrapping="Wrap" Text="Numero gatti:" VerticalAlignment="Top" Width="Auto" FontSize="20"/>
+        <TextBlock x:Name="TxtNumCats" HorizontalAlignment="Left" Height="Auto" Margin="250,187,0,0" TextWrapping="Wrap" Text="{Binding CatCount}" VerticalAlignment="Top" Width="40" FontSize="20"/>
+
+
     </Grid>
 </Window>

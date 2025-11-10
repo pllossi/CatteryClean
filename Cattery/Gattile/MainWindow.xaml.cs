@@ -4,14 +4,13 @@ using System.ComponentModel;
 using Application.UseCases;
 using Application.DTO;
 using Application.Interfaces;
+using System;
+using Infrastructure.Persistance.Repositories;
 
 namespace GattileUI
 {
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
-         
-         CatteryService manager = new CatteryService();
-
         private int _catCount;
         public int CatCount
         {
@@ -25,58 +24,53 @@ namespace GattileUI
                 }
             }
         }
-
+        public ICatRepository catRepository;
+        public IAdopterRepository adopterRepository;
+        public IAdoptionRepository adoptionRepository;
+        public CatteryService catteryService;
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
+            catRepository = new JsonCatRepository();
+            adopterRepository = new JsonAdopterPersistance();
+            adoptionRepository = new JsonAdoptionPersistance();
+            catteryService = new CatteryService(catRepository, adoptionRepository, adopterRepository);
             UpdateCatCount();
         }
-
         public void UpdateCatCount()
         {
-            CatCount = manager.presentCats.Count;
+            CatCount= catteryService.GetAllCats().Count();
         }
-
-        private void btnViewCats_Click(object sender, RoutedEventArgs e)
+        private void MenuPrincipale_ViewCats_Click(object sender, RoutedEventArgs e)
         {
-            var window = new CatsWindow(manager);
-            window.Show();
+
         }
 
-        private void btnNewCat_Click(object sender, RoutedEventArgs e)
+        private void MenuPrincipale_AddCat_Click(object sender, RoutedEventArgs e)
         {
-            var window = new NewCatWindow(manager);
-            window.ShowDialog();
-            UpdateCatCount();
+
         }
 
-        private void btnViewAdoptions_Click(object sender, RoutedEventArgs e)
+        private void MenuPrincipale_ViewAdopters_Click(object sender, RoutedEventArgs e)
         {
-            var window = new AdoptionsWindow(manager);
-            window.ShowDialog();
+
         }
 
-        private void btnNewAdoption_Click(object sender, RoutedEventArgs e)
+        private void MenuPrincipale_AddAdopter_Click(object sender, RoutedEventArgs e)
         {
-            var window = new NewAdoptionWindow(manager);
-            window.ShowDialog();
-            UpdateCatCount();
+
         }
 
-        private void btnFailedAdoption_Click(object sender, RoutedEventArgs e)
+        private void MenuPrincipale_ViewAdoptions_Click(object sender, RoutedEventArgs e)
         {
-            var window = new FailedAdoptionWindow(manager);
-            window.ShowDialog();
-            UpdateCatCount();
+
         }
 
-        private void btnNewAdopter_Click(object sender, RoutedEventArgs e)
+        private void MenuPrincipale_NewAdoption_Click(object sender, RoutedEventArgs e)
         {
-            var window = new NewAdopterWindow(manager);
-            window.ShowDialog();
-        }
 
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
