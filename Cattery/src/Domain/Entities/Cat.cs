@@ -9,13 +9,14 @@ namespace Domain.Entities
     {
         private static HashSet<string> GeneratedCodes = new HashSet<string>();
 
-        public Cat(string name = "", string breed = "", bool male = true, string? description = null, DateTime? exitDate = null, DateTime? birthDate = null)
+        public Cat(string name = "", string breed = "", bool male = true, string? description = null, DateTime? exitDate = null,DateTime? dateArrivial = null, DateTime? birthDate = null)
         {
             Name = name;
             Breed = breed;
             Male = male;
             Description = description;
             ExitDate = exitDate;
+            ShelterArrivalDate = dateArrivial ?? DateTime.Now;
             BirthDate = birthDate;
             CodeId = CreateCodeId();
         }

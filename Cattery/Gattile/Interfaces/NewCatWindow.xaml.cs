@@ -1,15 +1,17 @@
-﻿using Domain.Entities;
-using Domain.ValueObjects;
+﻿using Application;
+using Application.DTO;
+using System;
+using Infrastructure;
 using System.Windows;
-using Application;
+using Application.UseCases;
 
 namespace GattileUI
 {
     public partial class NewCatWindow : Window
     {
-        private ShelterManager manager;
+        private CatteryService manager;
 
-        public NewCatWindow(ShelterManager manager)
+        public NewCatWindow(CatteryService manager)
         {
             InitializeComponent();
             this.manager = manager;
@@ -23,13 +25,14 @@ namespace GattileUI
                 {
                     throw new ArgumentException();
                 }
-                var newCat = new Cat(
+                var newCat = new CatDto(
                     txtName.Text,
                     txtBreed.Text,
                     chkMale.IsChecked == true,
                     txtDescription.Text,
                     null,
-                    dpBirthDate.SelectedDate
+                    dpBirthDate.SelectedDate,
+                    null
                 );
                 manager.AddCat(newCat);
             }

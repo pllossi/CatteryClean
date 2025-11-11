@@ -19,6 +19,7 @@ namespace Application.Mappers
                 cat.Male,
                 cat.Description,
                 cat.ExitDate,
+                cat.ShelterArrivalDate, 
                 cat.BirthDate,
                 cat.CodeId
             );
@@ -32,6 +33,7 @@ namespace Application.Mappers
                 catDto.IsMale,
                 catDto.Description,
                 catDto.ExitDate,
+                catDto.ArrivialDate,
                 catDto.BirthDate
             );
             if(catDto.CodeId != null)

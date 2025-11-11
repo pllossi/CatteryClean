@@ -12,7 +12,8 @@ namespace Application.DTO
         bool IsMale,
         string? Description,
         DateTime? ExitDate,
+        DateTime? ArrivialDate,
         DateTime? BirthDate,
-        string CodeId
+        string? CodeId
         );
 }

@@ -49,7 +49,9 @@ namespace GattileUI
 
         private void MenuPrincipale_AddCat_Click(object sender, RoutedEventArgs e)
         {
-
+            var newCatWindow = new NewCatWindow(catteryService);
+            newCatWindow.ShowDialog();
+            UpdateCatCount();
         }
 
         private void MenuPrincipale_ViewAdopters_Click(object sender, RoutedEventArgs e)
