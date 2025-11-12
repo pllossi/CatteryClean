@@ -1,8 +1,27 @@
 ﻿<Window x:Class="GattileUI.CatsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Present Cats" Height="350" Width="400">
-    <Grid Margin="10">
-        <ListBox x:Name="lstCats" DisplayMemberPath="Name" />
+        Title="Present Cats" Height="350" Width="600">
+    <Grid>
+        <Menu x:Name="MenuPrincipale" Width="Auto" Height="Auto" VerticalAlignment="Top">
+            <MenuItem Header="Gatti" FontSize="15" Height="Auto">
+                <MenuItem FontSize="15" Header="Visualizza Gatti" Click="MenuPrincipale_ViewCats_Click"/>
+                <MenuItem FontSize="15" Header="Aggiungi Gatto" Click="MenuPrincipale_AddCat_Click"/>
+            </MenuItem>
+            <MenuItem Header="Adottanti" FontSize="15">
+                <MenuItem FontSize="15" Header="Visualizza Adottanti" Click="MenuPrincipale_ViewAdopters_Click"/>
+                <MenuItem FontSize="15" Header="Aggiungi Adottante" Click="MenuPrincipale_AddAdopter_Click"/>
+            </MenuItem>
+            <MenuItem Header="Adozioni" FontSize="15">
+                <MenuItem FontSize="15" Header="Visualizza Adozioni" Click="MenuPrincipale_ViewAdoptions_Click"/>
+                <MenuItem FontSize="15" Header="Nuova Adozione" Click="MenuPrincipale_NewAdoption_Click"/>
+            </MenuItem>
+        </Menu>
+        <ListBox x:Name="lstCats" DisplayMemberPath="Name" Height="296" Width="420" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,28,0,0"/>
+        <Button x:Name="btnAdopt" Content="Adopt Selected Cat" Height="30" Width="150" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnAdopt_Click" Margin="0,13,10,0"/>
+        <Button x:Name="btnChangeInfos" Content="Change Selected Cat Infos" Height="30" Width="150" VerticalAlignment="Bottom"  Margin="440,0,10,256" Click="btnChangeInfos_Click"/>
+        <Button x:Name="btnDeleteCat" Content="Delete Selected Cat" Height="30" Width="150" VerticalAlignment="Bottom" Margin="440,0,10,221" Click="btnDeleteCat_Click"/>
+        <Button x:Name="btnAddCat" Content="Add New Cat" Height="30" Width="150" VerticalAlignment="Bottom" Margin="440,0,10,186" Click="btnAddCat_Click"/>
+        <Button x:Name="btnClose" Content="Close" Height="30" Width="150" VerticalAlignment="Bottom" Margin="440,0,10,10" Click="BtnClose_Click"/>
     </Grid>
 </Window>

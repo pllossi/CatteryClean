@@ -85,6 +85,19 @@ namespace Infrastructure.Persistance.Repositories
             File.WriteAllText(_filePath, json);
         }
 
+        public Cat? getCatByCodeId(string codeId)
+        {
+            EnsureLoaded();
+            return _cache.FirstOrDefault(c => c.CodeId == codeId);
+        }
+        public void deleteCat(Cat cat)
+        {
+            EnsureLoaded();
+            if (cat is null) throw new ArgumentNullException(nameof(cat));
+            _cache.RemoveAll(c => c.CodeId == cat.CodeId);
+            SaveDtos();
+        }
+
         public bool existsByCodeId(string codeId)
         {
             return getAllCats().Any(c => c.CodeId == codeId);

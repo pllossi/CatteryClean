@@ -1,7 +1,6 @@
-﻿using Domain.Entities;
+﻿using Application.DTO;
 using System;
 using System.Windows;
-using Application;
 
 namespace GattileUI
 {
@@ -10,13 +9,14 @@ namespace GattileUI
     /// </summary>
     public partial class CatDetailsWindow : Window
     {
-        public CatDetailsWindow(Cat cat)
+        public CatDetailsWindow(CatDto cat)
         {
             InitializeComponent();
             DataContext = new CatDetailsViewModel(cat);
         }
 
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        // XAML usa BtnChiudi_Click
+        private void BtnChiudi_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
@@ -24,21 +24,21 @@ namespace GattileUI
 
     public class CatDetailsViewModel
     {
-        public string Name { get; }
-        public string Breed { get; }
-        public string Gender { get; }
-        public DateTime? BirthDate { get; }
-        public string? Description { get; }
-        public string IdentificationCode { get; }
+        public string Nome { get; }
+        public string Razza { get; }
+        public string Sesso { get; }
+        public DateTime? DataNascita { get; }
+        public string? Descrizione { get; }
+        public string CodiceIdentificativo { get; }
 
-        public CatDetailsViewModel(Cat cat)
+        public CatDetailsViewModel(CatDto cat)
         {
-            Name = cat.Name;
-            Breed = cat.Breed;
-            Gender = cat.Male ? "Male" : "Female";
-            BirthDate = cat.BirthDate;
-            Description = cat.Description;
-            IdentificationCode = cat.CodeId;
+            Nome = cat.Name;
+            Razza = cat.Breed;
+            Sesso = cat.IsMale ? "Maschio" : "Femmina";
+            DataNascita = cat.BirthDate;
+            Descrizione = cat.Description;
+            CodiceIdentificativo = cat.CodeId ?? string.Empty;
         }
     }
 }

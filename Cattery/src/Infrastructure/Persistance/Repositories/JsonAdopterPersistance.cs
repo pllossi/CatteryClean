@@ -58,6 +58,10 @@ namespace Infrastructure.Persistance.Repositories
             var json = File.ReadAllText(_filePath);
             _cache = JsonSerializer.Deserialize<List<AdopterDTO>>(json, _jsonOptions) ?? new List<AdopterDTO>();
         }
+        public IEnumerable<AdopterDTO> GetAllAdopters()
+        {
+            return getAllAdopters().Select(a => a.ToDTO());
+        }
         private void AddAdopterToFile()
         {
             var json = JsonSerializer.Serialize(_cache, _jsonOptions);

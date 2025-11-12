@@ -49,6 +49,24 @@ namespace Application.UseCases
             if(_adopterRepository.getAllAdopters().Any(a=> a.TaxId==adopter.TaxId)) throw new ArgumentException("An adopter with the same TaxId already exists.");
             _adopterRepository.addAdopter(adopter);
         }
+        public void DeleteCat(string codeId)
+        {
+            if(string.IsNullOrWhiteSpace(codeId)) throw new ArgumentNullException(nameof(codeId));
+            var cat = _catRepository.getCatByCodeId(codeId);
+            if(cat is null) throw new ArgumentException("The cat with the given CodeId does not exist.");
+            _catRepository.deleteCat(cat);
+        }
+        public IEnumerable<CatDto> GetAllCatsAdopted()
+        {
+            var adoptions = _adoptionRepository.getAllAdoptions();
+            var cats = adoptions.Select(a => a.Cat);
+            return cats.Select(cat => cat.ToDTO());
+        }
+        public IEnumerable<AdopterDTO> GetAllAdopter()
+        {
+            var adopters = _adopterRepository.getAllAdopters();
+            return adopters.Select(adopter => adopter.ToDTO());
+        }
         public IEnumerable<CatDto> GetAllCats()
         {
             var cats = _catRepository.getAllCats();

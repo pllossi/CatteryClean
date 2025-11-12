@@ -38,5 +38,53 @@ namespace GattileUI
                 MessageBox.Show(info, "Cat Details", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAddCat_Click(object sender, RoutedEventArgs e)
+        {
+            var newCatWindow = new NewCatWindow(manager);
+            newCatWindow.ShowDialog();
+            UpdateCatsList();
+        }
+
+        private void btnDeleteCat_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstCats.SelectedItem is CatDto selectedCat)
+            {
+                var result = MessageBox.Show($"Are you sure you want to delete {selectedCat.Name}?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    manager.DeleteCat(selectedCat.CodeId);
+                    UpdateCatsList();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a cat to delete.", "No Cat Selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
+
+        private void btnChangeInfos_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstCats.SelectedItem is CatDto selectedCat)
+            {
+                var editCatWindow = new EditCatWindow(manager, selectedCat.CodeId);
+                editCatWindow.ShowDialog();
+                UpdateCatsList();
+            }
+            else
+            {
+                MessageBox.Show("Please select a cat to edit.", "No Cat Selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
+        }
+
+        private void btnAdopt_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

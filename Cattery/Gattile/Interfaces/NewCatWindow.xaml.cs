@@ -26,12 +26,13 @@ namespace GattileUI
                     throw new ArgumentException();
                 }
                 var newCat = new CatDto(
-                    txtName.Text,
-                    txtBreed.Text,
-                    chkMale.IsChecked == true,
-                    txtDescription.Text,
-                    null,
-                    dpBirthDate.SelectedDate,
+                    Name:txtName.Text,
+                    Breed:txtBreed.Text,
+                    IsMale:chkMale.IsChecked == true,
+                    Description:txtDescription.Text,
+                    ExitDate:null,
+                    ArrivialDate:DateTime.Today,
+                    BirthDate: dpBirthDate.SelectedDate,
                     null
                 );
                 manager.AddCat(newCat);

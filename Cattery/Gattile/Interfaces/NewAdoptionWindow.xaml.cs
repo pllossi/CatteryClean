@@ -1,32 +1,56 @@
-﻿using Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
-using Application;
+using Application.DTO;
+using Application.UseCases;
 
 namespace GattileUI
 {
     public partial class NewAdoptionWindow : Window
     {
-        private ShelterManager manager;
+        private readonly CatteryService _service;
+        private readonly IEnumerable<CatDto> _cats;
+        private readonly IEnumerable<AdopterDTO> _adopters;
 
-        public NewAdoptionWindow(ShelterManager manager)
+        // Ricevo le liste dal chiamante: il service espone GetAllCats(), ma non GetAllAdopters(),
+        // quindi conviene che il chiamante fornisca gli adottanti.
+        public NewAdoptionWindow(CatteryService service, IEnumerable<CatDto> cats, IEnumerable<AdopterDTO> adopters)
         {
             InitializeComponent();
-            this.manager = manager;
-            cmbCat.ItemsSource = manager.presentCats;
-            cmbAdopter.ItemsSource = manager.adopters;
+            _service = service;
+            _cats = cats;
+            _adopters = adopters;
+
+            cmbCat.ItemsSource = _cats;
+            cmbAdopter.ItemsSource = _adopters;
+        }
+        public NewAdoptionWindow(CatteryService service)
+        {
+            InitializeComponent();
+            _service = service;
+            _cats = service.GetAllCats();
+            _adopters = service.Get
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            if (cmbCat.SelectedItem is Cat cat && cmbAdopter.SelectedItem is Adopter adopter)
+            if (cmbCat.SelectedItem is CatDto cat && cmbAdopter.SelectedItem is AdopterDTO adopter)
             {
-                var adoption = new Adoption(adopter, cat, DateTime.Now);
-                manager.RegisterAdoption(adoption);
-                Close();
+                var adoptionDto = new AdoptionDTO(cat, adopter, DateTime.Now);
+                try
+                {
+                    _service.AdoptCat(adoptionDto);
+                    MessageBox.Show("Adozione registrata.");
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Errore: {ex.Message}");
+                }
             }
             else
             {
-                MessageBox.Show("Select both the cat and the adopter.");
+                MessageBox.Show("Seleziona gatto e adottante.");
             }
         }
     }

@@ -44,7 +44,9 @@ namespace GattileUI
         }
         private void MenuPrincipale_ViewCats_Click(object sender, RoutedEventArgs e)
         {
-
+            var win = new CatsWindow(catteryService);
+            win.ShowDialog();
+            UpdateCatCount();
         }
 
         private void MenuPrincipale_AddCat_Click(object sender, RoutedEventArgs e)
@@ -56,23 +58,29 @@ namespace GattileUI
 
         private void MenuPrincipale_ViewAdopters_Click(object sender, RoutedEventArgs e)
         {
-
+            var win = new ViewAdoptersWindow(catteryService);
+            win.ShowDialog(); 
         }
 
         private void MenuPrincipale_AddAdopter_Click(object sender, RoutedEventArgs e)
         {
-
+            var win = new NewAdopterWindow(catteryService);
+            win.ShowDialog();
         }
 
         private void MenuPrincipale_ViewAdoptions_Click(object sender, RoutedEventArgs e)
         {
-
+            var win = new AdoptionsWindow(catteryService);
+            win.ShowDialog();
         }
 
         private void MenuPrincipale_NewAdoption_Click(object sender, RoutedEventArgs e)
         {
-
+            var win = new NewAdoptionWindow(catteryService);
+            win.ShowDialog();
+            UpdateCatCount();
         }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

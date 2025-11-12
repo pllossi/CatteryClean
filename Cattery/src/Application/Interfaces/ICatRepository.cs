@@ -13,6 +13,8 @@ namespace Application.Interfaces
         void addCat(Cat cat);
         IEnumerable<Cat> getAllCats();
         bool existsByCodeId(string codeId);
+        Cat? getCatByCodeId(string codeId);
+        void deleteCat(Cat cat);
 
     }
 }
