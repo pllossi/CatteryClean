@@ -12,7 +12,7 @@ namespace GattileUI
     public partial class EditCatWindow : Window
     {
         private readonly CatteryService _service;
-            private readonly string _originalCodeId;
+        private readonly string _originalCodeId;
 
         public EditCatWindow(CatteryService service, CatDto cat)
         {
@@ -90,6 +90,43 @@ namespace GattileUI
             {
                 MessageBox.Show($"Errore durante il salvataggio: {ex.Message}");
             }
+        }
+
+        // --- Aggiunti: handler dei comandi di menu usati nell'XAML ---
+        private void MenuPrincipale_ViewCats_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new CatsWindow(_service);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_AddCat_Click(object sender, RoutedEventArgs e)
+        {
+            var newCatWindow = new NewCatWindow(_service);
+            newCatWindow.ShowDialog();
+        }
+
+        private void MenuPrincipale_ViewAdopters_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new ViewAdoptersWindow(_service);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_AddAdopter_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new NewAdopterWindow(_service);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_ViewAdoptions_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new AdoptionsWindow(_service);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_NewAdoption_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new NewAdoptionWindow(_service);
+            win.ShowDialog();
         }
     }
 }

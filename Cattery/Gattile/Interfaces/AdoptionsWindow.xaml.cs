@@ -32,7 +32,7 @@ namespace GattileUI
                 var cat = _manager.GetAllCatsAdopted().FirstOrDefault(c => c.Name == catName);
                 if (cat != null)
                 {
-                    var detailsWindow = new CatDetailsWindow(cat);
+                    var detailsWindow = new CatDetailsWindow(cat, _manager);
                     detailsWindow.Owner = this;
                     detailsWindow.ShowDialog();
                 }
@@ -46,7 +46,6 @@ namespace GattileUI
 
         private void BtnClose_Click(object sender, RoutedEventArgs e) => Close();
 
-        // --- Menu handlers (aprono le finestre corrispondenti) ---
         private void MenuPrincipale_ViewCats_Click(object sender, RoutedEventArgs e)
         {
             try

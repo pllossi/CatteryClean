@@ -10,7 +10,6 @@
             </MenuItem>
             <MenuItem Header="Adottanti" FontSize="20">
                 <MenuItem FontSize="15" Header="Visualizza Adottanti" Click="MenuPrincipale_ViewAdopters_Click"/>
-                <MenuItem FontSize="15" Header="Aggiungi Adottante" Click="MenuPrincipale_AddAdopter_Click"/>
             </MenuItem>
             <MenuItem Header="Adozioni" FontSize="20">
                 <MenuItem FontSize="15" Header="Visualizza Adozioni" Click="MenuPrincipale_ViewAdoptions_Click"/>

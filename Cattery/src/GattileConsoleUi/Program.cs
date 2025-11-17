@@ -79,8 +79,9 @@ namespace GattileConsoleUi
                                 Breed: catBreed,
                                 IsMale: catMale,
                                 Description: catDescription,
-                                ExitDate: null,
                                 BirthDate: catBirth,
+                                ExitDate: null,
+                                ArrivialDate: null,
                                 CodeId: null
                             );
 

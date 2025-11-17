@@ -3,7 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Modifica Gatto" Height="420" Width="500">
     <Grid Margin="10">
-        <Menu x:Name="MenuPrincipale" Width="Auto" Height="45" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Menu x:Name="MenuPrincipale" Width="Auto" Height="45" VerticalAlignment="Top" Grid.Row="0">
             <MenuItem Header="Gatti" FontSize="20" Height="45">
                 <MenuItem FontSize="15" Header="Visualizza Gatti" Click="MenuPrincipale_ViewCats_Click"/>
                 <MenuItem FontSize="15" Header="Aggiungi Gatto" Click="MenuPrincipale_AddCat_Click"/>
@@ -17,12 +23,6 @@
                 <MenuItem FontSize="15" Header="Nuova Adozione" Click="MenuPrincipale_NewAdoption_Click"/>
             </MenuItem>
         </Menu>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,50,0,10">
             <TextBlock Text="Modifica Gatto" FontSize="18" FontWeight="Bold" Margin="0,0,0,8"/>

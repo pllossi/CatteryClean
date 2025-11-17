@@ -71,7 +71,7 @@ namespace GattileUI
         {
             if (lstCats.SelectedItem is CatDto selectedCat)
             {
-                var editCatWindow = new EditCatWindow(manager, selectedCat.CodeId);
+                var editCatWindow = new EditCatWindow(manager, selectedCat);
                 editCatWindow.ShowDialog();
                 UpdateCatsList();
             }
@@ -85,6 +85,36 @@ namespace GattileUI
         private void btnAdopt_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void MenuPrincipale_AddCat_Click(object sender, RoutedEventArgs e)
+        {
+            var newCatWindow = new NewCatWindow(manager);
+            newCatWindow.ShowDialog();
+        }
+
+        private void MenuPrincipale_ViewAdopters_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new ViewAdoptersWindow(manager);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_AddAdopter_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new NewAdopterWindow(manager);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_ViewAdoptions_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new AdoptionsWindow(manager);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_NewAdoption_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new NewAdoptionWindow(manager);
+            win.ShowDialog();
         }
     }
 }

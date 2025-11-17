@@ -55,5 +55,42 @@ namespace GattileUI
                 MessageBox.Show($"Errore: {ex.Message}");
             }
         }
+
+        // Handlers per i MenuItem presenti nel XAML (implementati come in MainWindow, ma usando _service)
+        private void MenuPrincipale_ViewCats_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new CatsWindow(_service);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_AddCat_Click(object sender, RoutedEventArgs e)
+        {
+            var newCatWindow = new NewCatWindow(_service);
+            newCatWindow.ShowDialog();
+        }
+
+        private void MenuPrincipale_ViewAdopters_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new ViewAdoptersWindow(_service);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_AddAdopter_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new NewAdopterWindow(_service);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_ViewAdoptions_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new AdoptionsWindow(_service);
+            win.ShowDialog();
+        }
+
+        private void MenuPrincipale_NewAdoption_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new NewAdoptionWindow(_service);
+            win.ShowDialog();
+        }
     }
 }

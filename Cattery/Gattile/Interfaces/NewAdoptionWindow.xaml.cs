@@ -29,7 +29,11 @@ namespace GattileUI
             InitializeComponent();
             _service = service;
             _cats = service.GetAllCats();
-            _adopters = service.Get
+            _adopters = service.GetAllAdopter();
+
+            // Popola i ComboBox quando la finestra viene costruita passando solo il service
+            cmbCat.ItemsSource = _cats;
+            cmbAdopter.ItemsSource = _adopters;
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -51,6 +55,94 @@ namespace GattileUI
             else
             {
                 MessageBox.Show("Seleziona gatto e adottante.");
+            }
+        }
+
+        private void MenuPrincipale_ViewCats_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new CatsWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Gatti: {ex.Message}");
+            }
+        }
+
+        private void MenuPrincipale_AddCat_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new NewCatWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+                // dopo chiusura potremmo volere ricaricare la lista di gatti
+                cmbCat.ItemsSource = _service.GetAllCats();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Aggiungi Gatto: {ex.Message}");
+            }
+        }
+
+        private void MenuPrincipale_ViewAdopters_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new ViewAdoptersWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Adottanti: {ex.Message}");
+            }
+        }
+
+        private void MenuPrincipale_AddAdopter_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new NewAdopterWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+                // ricarica adottanti dopo possibile aggiunta
+                cmbAdopter.ItemsSource = _service.GetAllAdopter();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Aggiungi Adottante: {ex.Message}");
+            }
+        }
+
+        private void MenuPrincipale_ViewAdoptions_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new AdoptionsWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Adozioni: {ex.Message}");
+            }
+        }
+
+        private void MenuPrincipale_NewAdoption_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new NewAdoptionWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Nuova Adozione: {ex.Message}");
             }
         }
     }

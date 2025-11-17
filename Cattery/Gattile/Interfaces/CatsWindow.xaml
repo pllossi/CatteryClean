@@ -5,7 +5,6 @@
     <Grid>
         <Menu x:Name="MenuPrincipale" Width="Auto" Height="Auto" VerticalAlignment="Top">
             <MenuItem Header="Gatti" FontSize="15" Height="Auto">
-                <MenuItem FontSize="15" Header="Visualizza Gatti" Click="MenuPrincipale_ViewCats_Click"/>
                 <MenuItem FontSize="15" Header="Aggiungi Gatto" Click="MenuPrincipale_AddCat_Click"/>
             </MenuItem>
             <MenuItem Header="Adottanti" FontSize="15">

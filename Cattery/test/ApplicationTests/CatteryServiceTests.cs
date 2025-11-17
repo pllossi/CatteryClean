@@ -27,10 +27,10 @@ namespace ApplicationTests
         public List<Cat> Cats = new();
         public void addCat(Cat cat)
         {
-            if(cat is null) throw new ArgumentNullException(nameof(cat));
-            foreach(var existingCat in Cats)
+            if (cat is null) throw new ArgumentNullException(nameof(cat));
+            foreach (var existingCat in Cats)
             {
-                if(existingCat.CodeId == cat.CodeId)
+                if (existingCat.CodeId == cat.CodeId)
                 {
                     throw new ArgumentException("A cat with the same CodeId already exists.");
                 }
@@ -39,6 +39,15 @@ namespace ApplicationTests
         }
         public IEnumerable<Cat> getAllCats() => Cats;
         public bool existsByCodeId(string codeId) => Cats.Any(c => c.CodeId == codeId);
+
+        // Implementazione mancanti dell'interfaccia
+        public Cat? getCatByCodeId(string codeId) => Cats.FirstOrDefault(c => c.CodeId == codeId);
+
+        public void deleteCat(Cat cat)
+        {
+            if (cat is null) throw new ArgumentNullException(nameof(cat));
+            Cats.Remove(cat);
+        }
     }
 
     // Repository fittizio per le adozioni
@@ -55,7 +64,8 @@ namespace ApplicationTests
     {
         public static Cat ToEntity(this CatDto dto)
         {
-            var cat = new Cat(dto.Name, dto.Breed, dto.IsMale, dto.Description, dto.ExitDate, dto.BirthDate);
+            // dto non espone DateArrivial con quel nome; passiamo null per il parametro di "shelter arrival" se non disponibile
+            var cat = new Cat(dto.Name, dto.Breed, dto.IsMale, dto.Description, dto.ExitDate, null, dto.BirthDate);
             return cat;
         }
 
@@ -67,6 +77,7 @@ namespace ApplicationTests
                 cat.Male,
                 cat.Description,
                 cat.ExitDate,
+                cat.ShelterArrivalDate,
                 cat.BirthDate,
                 cat.CodeId
             );
@@ -117,7 +128,7 @@ namespace ApplicationTests
         [TestMethod]
         public void AddCat_Valid_AddsCat()
         {
-            var dto = new CatDto("Name", "Breed", true, null, null, null, "C2");
+            var dto = new CatDto("Name", "Breed", true, null, null, null, null, "C2");
             _service.AddCat(dto);
             Assert.IsTrue(_service.GetAllCats().Any(c => c.CodeId == "C2"));
         }
@@ -133,7 +144,7 @@ namespace ApplicationTests
         [ExpectedException(typeof(ArgumentException))]
         public void AdoptCat_CatDoesNotExist_Throws()
         {
-            var catDto = new CatDto("Name", "Breed", true, null, null, null, "C3");
+            var catDto = new CatDto("Name", "Breed", true, null, null, null, null, "C3");
             var adopterDto = new AdopterDTO("Name", "Surname", new PhoneNumberDTO("1234567"), new EmailDTO("a@b.cd"), "addr", new CapDTO("12345"), new TaxIdDTO("AAAAAAAAAAAAAAAA"));
             var adoptionDto = new AdoptionDTO(catDto, adopterDto, DateTime.Today);
             _service.AdoptCat(adoptionDto);
@@ -142,7 +153,7 @@ namespace ApplicationTests
         [TestMethod]
         public void AdoptCat_Valid_AddsAdoption()
         {
-            var catDto = new CatDto("Name", "Breed", true, null, null, null, "C4");
+            var catDto = new CatDto("Name", "Breed", true, null, null, null, null, "C4");
             var adopterDto = new AdopterDTO("Name", "Surname", new PhoneNumberDTO("1234567"), new EmailDTO("a@b.cd"), "addr", new CapDTO("12345"), new TaxIdDTO("AAAAAAAAAAAAAAAA"));
             var adoptionDto = new AdoptionDTO(catDto, adopterDto, DateTime.Today);
             _service.AddCat(catDto);

@@ -36,5 +36,89 @@ namespace GattileUI
                 MessageBox.Show("Compila tutti i campi.");
             }
         }
+
+        private void MenuPrincipale_ViewCats_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new CatsWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Gatti: {ex.Message}");
+            }
+        }
+
+        private void MenuPrincipale_AddCat_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new NewCatWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Aggiungi Gatto: {ex.Message}");
+            }
+        }
+
+        private void MenuPrincipale_ViewAdopters_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new ViewAdoptersWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Adottanti: {ex.Message}");
+            }
+        }
+
+        private void MenuPrincipale_AddAdopter_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new NewAdopterWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Aggiungi Adottante: {ex.Message}");
+            }
+        }
+
+        private void MenuPrincipale_ViewAdoptions_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new AdoptionsWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Adozioni: {ex.Message}");
+            }
+        }
+
+        private void MenuPrincipale_NewAdoption_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var win = new NewAdoptionWindow(_service);
+                win.Owner = this;
+                win.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Errore aprendo la finestra Nuova Adozione: {ex.Message}");
+            }
+        }
     }
 }

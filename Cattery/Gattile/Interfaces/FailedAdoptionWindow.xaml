@@ -3,8 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Adozione Fallita" Height="300" Width="400">
     <Grid Margin="10">
-        <Menu x:Name="MenuPrincipale" Width="Auto" Height="45" VerticalAlignment="Top">
-            <MenuItem Header="Gatti" FontSize="20" Height="45">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu x:Name="MenuPrincipale" Width="Auto" Height="28" VerticalAlignment="Top" Grid.Row="0">
+            <MenuItem Header="Gatti" FontSize="20" Height="Auto">
                 <MenuItem FontSize="15" Header="Visualizza Gatti" Click="MenuPrincipale_ViewCats_Click"/>
                 <MenuItem FontSize="15" Header="Aggiungi Gatto" Click="MenuPrincipale_AddCat_Click"/>
             </MenuItem>
@@ -18,24 +26,18 @@
             </MenuItem>
         </Menu>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,50,0,0">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,50,0,0">
             <Label Content="Gatto:" Width="80"/>
             <ComboBox x:Name="cmbCat" Width="200" DisplayMemberPath="Name"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0">
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0">
             <Label Content="Inizio:" Width="80"/>
             <DatePicker x:Name="dpStart" Width="200"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0">
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,10,0,0">
             <Label Content="Termine:" Width="80"/>
             <DatePicker x:Name="dpEnd" Width="200"/>
         </StackPanel>
-        <Button Content="Registra Fallita" Grid.Row="3" Width="219" Margin="10,26,0,104" HorizontalAlignment="Left" Click="btnRegistraFallita_Click"/>
+        <Button Content="Registra" Grid.Row="4" Width="219" Margin="10,26,0,34" HorizontalAlignment="Left" Click="btnRegistraFallita_Click"/>
     </Grid>
 </Window>
